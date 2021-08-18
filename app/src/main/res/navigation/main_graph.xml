@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/dashboard_fragment">
+    <fragment
+        android:id="@+id/dashboard_fragment"
+        android:name="org.skyfaced.wopi.ui.dashboard.DashboardFragment"
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_dashboard_fragment_to_searchFragment"
+            app:destination="@id/search_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/search_fragment"
+        android:name="org.skyfaced.wopi.ui.search.SearchFragment"
+        tools:layout="@layout/fragment_search" />
+</navigation>

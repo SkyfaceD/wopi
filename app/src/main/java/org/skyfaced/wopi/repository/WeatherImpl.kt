@@ -1,13 +1,13 @@
 package org.skyfaced.wopi.repository
 
 import org.skyfaced.wopi.model.response.Search
-import org.skyfaced.wopi.network.WeatherApi
+import org.skyfaced.wopi.network.MetaWeatherApi
 import javax.inject.Inject
 
 class WeatherImpl @Inject constructor(
-    private val weatherApi: WeatherApi,
+    private val metaWeatherApi: MetaWeatherApi,
 ) : Weather {
     override suspend fun searchByLocation(location: String): List<Search> {
-        return weatherApi.searchByLocation(location)
+        return metaWeatherApi.searchByLocation(location)
     }
 }

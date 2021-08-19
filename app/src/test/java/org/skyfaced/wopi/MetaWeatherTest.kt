@@ -11,12 +11,12 @@ import org.junit.After
 import org.junit.Assert
 import org.junit.Test
 import org.skyfaced.wopi.model.response.Search
-import org.skyfaced.wopi.network.WeatherApi
+import org.skyfaced.wopi.network.MetaWeatherApi
 import org.skyfaced.wopi.repository.WeatherImpl
 import retrofit2.Retrofit
 
 @ExperimentalSerializationApi
-class WeatherTest {
+class MetaWeatherTest {
     private val mockWebServer = MockWebServer()
 
     private val client = OkHttpClient.Builder()
@@ -27,7 +27,7 @@ class WeatherTest {
         .client(client)
         .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
         .build()
-        .create(WeatherApi::class.java)
+        .create(MetaWeatherApi::class.java)
 
     private val weather = WeatherImpl(weatherApi)
 

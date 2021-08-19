@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface WeatherApi {
+interface MetaWeatherApi {
     @GET("/api/location/search/")
     suspend fun searchByLocation(@Query("query") location: String): List<Search>
 

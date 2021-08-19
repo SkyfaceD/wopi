@@ -1,4 +1,4 @@
-package org.skyfaced.wopi.di.module
+package org.skyfaced.wopi.di.modules
 
 import dagger.Module
 import dagger.Provides

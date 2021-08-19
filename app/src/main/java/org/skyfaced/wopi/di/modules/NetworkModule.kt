@@ -1,4 +1,4 @@
-package org.skyfaced.wopi.di.module
+package org.skyfaced.wopi.di.modules
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module

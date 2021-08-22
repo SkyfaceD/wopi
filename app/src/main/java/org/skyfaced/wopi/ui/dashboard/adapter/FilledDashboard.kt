@@ -9,11 +9,12 @@ import org.skyfaced.wopi.R
 import org.skyfaced.wopi.databinding.ItemDashboardBinding
 import org.skyfaced.wopi.model.adapter.DashboardItem
 import org.skyfaced.wopi.model.adapter.Item
-import org.skyfaced.wopi.ui.BaseViewHolder
+import org.skyfaced.wopi.ui.base.BaseItem
+import org.skyfaced.wopi.ui.base.BaseViewHolder
 
 class FilledDashboard(
     private val onItemClick: (DashboardItem) -> Unit,
-) : ItemDashboard<ItemDashboardBinding, DashboardItem> {
+) : BaseItem<ItemDashboardBinding, DashboardItem>() {
     override fun isRelativeItem(item: Item) = item is DashboardItem
 
     override fun getLayoutId() = R.layout.item_dashboard

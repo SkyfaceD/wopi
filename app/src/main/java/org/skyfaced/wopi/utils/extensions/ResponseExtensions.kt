@@ -6,14 +6,8 @@ fun <T> success(data: T): Response.Success<T> {
     return Response.Success(data)
 }
 
-fun error(message: String?, cause: Throwable?): Response.Error {
+fun error(message: String? = null, cause: Throwable? = null): Response.Error {
     return Response.Error(message, cause)
 }
 
 fun load() = Response.Load
-
-fun <T> handle(data: T): Response<T> = try {
-    success(data)
-} catch (e: Exception) {
-    error(e.message, e)
-}

@@ -7,29 +7,46 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.skyfaced.wopi.model.response.Search
-import org.skyfaced.wopi.repository.Weather
+import org.skyfaced.wopi.repository.SearchRepository
 import org.skyfaced.wopi.utils.Response
-import org.skyfaced.wopi.utils.extensions.handle
+import org.skyfaced.wopi.utils.extensions.error
 import org.skyfaced.wopi.utils.extensions.load
 import org.skyfaced.wopi.utils.extensions.success
+import org.skyfaced.wopi.utils.result.asFailure
+import org.skyfaced.wopi.utils.result.asSuccess
+import org.skyfaced.wopi.utils.result.isSuccess
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(private val weather: Weather) : ViewModel() {
-    private val _searchLocation =
+class SearchViewModel @Inject constructor(private val searchRepository: SearchRepository) :
+    ViewModel() {
+    private val _searchResult =
         MutableStateFlow<Response<List<Search>>>(success(emptyList()))
-    val searchLocation = _searchLocation.asStateFlow()
+    val searchResult = _searchResult.asStateFlow()
 
-    private var searchQuery = ""
+    private var _query = ""
+    val query get() = _query
 
-    fun searchByLocation(location: String = searchQuery) {
+    fun saveQueryAndStartSearching(query: String) {
+        _query = query
+        search(query)
+    }
+
+    private fun search(query: String) {
         viewModelScope.launch {
-            _searchLocation.emit(load())
-            _searchLocation.emit(handle(weather.searchByLocation(location)))
+            _searchResult.emit(load())
+
+            val result =
+                if (isCoordinates(query)) searchRepository.searchByCoordinates(query)
+                else searchRepository.searchByLocation(query)
+            if (result.isSuccess()) {
+                _searchResult.emit(success(result.asSuccess().value))
+            } else {
+                _searchResult.emit(error(cause = result.asFailure().error))
+            }
         }
     }
 
-    fun updateSearchQuery(query: String) {
-        searchQuery = query
-    }
+    private fun isCoordinates(query: String) =
+        !query.contains("""\p{Alpha}|\\,|\\-""".toRegex())
 }

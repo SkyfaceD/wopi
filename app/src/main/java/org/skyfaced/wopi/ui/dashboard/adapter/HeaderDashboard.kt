@@ -7,9 +7,10 @@ import org.skyfaced.wopi.R
 import org.skyfaced.wopi.databinding.ItemDashboardHeaderBinding
 import org.skyfaced.wopi.model.adapter.DashboardHeader
 import org.skyfaced.wopi.model.adapter.Item
-import org.skyfaced.wopi.ui.BaseViewHolder
+import org.skyfaced.wopi.ui.base.BaseItem
+import org.skyfaced.wopi.ui.base.BaseViewHolder
 
-class HeaderDashboard : ItemDashboard<ItemDashboardHeaderBinding, DashboardHeader> {
+class HeaderDashboard : BaseItem<ItemDashboardHeaderBinding, DashboardHeader>() {
     override fun isRelativeItem(item: Item) = item is DashboardHeader
 
     override fun getLayoutId() = R.layout.item_dashboard_header

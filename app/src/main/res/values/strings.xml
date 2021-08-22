@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">wopi</string>
+
+    <string name="lbl_search">Search</string>
+
+    <string name="hint_search">Search</string>
 </resources>

@@ -1,21 +1,20 @@
-package org.skyfaced.wopi.ui.dashboard.adapter
+package org.skyfaced.wopi.ui.base
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.viewbinding.ViewBinding
 import org.skyfaced.wopi.model.adapter.Item
-import org.skyfaced.wopi.ui.BaseViewHolder
 
-class DashboardAdapter(
-    private val dashboards: List<ItemDashboard<*, *>>,
-) : ListAdapter<Item, BaseViewHolder<ViewBinding, Item>>(DashboardDiffUtil(dashboards)) {
+class BaseAdapter(
+    private val items: List<BaseItem<*, *>>,
+) : ListAdapter<Item, BaseViewHolder<ViewBinding, Item>>(BaseDiffUtil(items)) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
     ): BaseViewHolder<ViewBinding, Item> {
         val inflater = LayoutInflater.from(parent.context)
-        return dashboards.find { it.getLayoutId() == viewType }
+        return items.find { it.getLayoutId() == viewType }
             ?.getViewHolder(inflater, parent)
             ?.let { it as BaseViewHolder<ViewBinding, Item> }
             ?: throw IllegalAccessException("View type not found: $viewType")
@@ -32,7 +31,7 @@ class DashboardAdapter(
 
     override fun getItemViewType(position: Int): Int {
         val item = getItem(position)
-        return dashboards.find { it.isRelativeItem(item) }
+        return items.find { it.isRelativeItem(item) }
             ?.getLayoutId()
             ?: throw IllegalArgumentException("Item view type not found: $item")
     }

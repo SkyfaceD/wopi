@@ -7,11 +7,12 @@ import org.skyfaced.wopi.R
 import org.skyfaced.wopi.databinding.ItemDashboardAddBinding
 import org.skyfaced.wopi.model.adapter.DashboardAdd
 import org.skyfaced.wopi.model.adapter.Item
-import org.skyfaced.wopi.ui.BaseViewHolder
+import org.skyfaced.wopi.ui.base.BaseItem
+import org.skyfaced.wopi.ui.base.BaseViewHolder
 
 class AddDashboard(
     private val onItemClick: () -> Unit,
-) : ItemDashboard<ItemDashboardAddBinding, DashboardAdd> {
+) : BaseItem<ItemDashboardAddBinding, DashboardAdd>() {
     override fun isRelativeItem(item: Item) = item is DashboardAdd
 
     override fun getLayoutId() = R.layout.item_dashboard_add

@@ -11,6 +11,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.skyfaced.wopi.network.MetaWeatherApi
+import org.skyfaced.wopi.utils.result.ResultAdapterFactory
 import retrofit2.Retrofit
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
@@ -43,6 +44,7 @@ object NetworkModule {
             .baseUrl(META_WEATHER_URL)
             .client(metaWeatherClient)
             .addConverterFactory(jsonConverter)
+            .addCallAdapterFactory(ResultAdapterFactory())
             .build()
             .create(MetaWeatherApi::class.java)
     }

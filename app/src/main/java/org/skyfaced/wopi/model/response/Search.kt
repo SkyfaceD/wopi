@@ -2,8 +2,8 @@ package org.skyfaced.wopi.model.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.skyfaced.wopi.model.LocationType
 import org.skyfaced.wopi.model.adapter.SearchItem
+import org.skyfaced.wopi.utils.extensions.round
 
 @Serializable
 data class Search(
@@ -18,8 +18,12 @@ data class Search(
     fun toSearchItem() = SearchItem(
         id = woeid,
         city = title,
-        locationType = LocationType.extract(locationType),
-        lattLong = lattLong,
-        distance = distance
+        description = listOfNotNull(
+            locationType,
+            lattLong.split(',')
+                .map { it.toDouble().round() }
+                .joinToString(", "),
+            distance?.toString()
+        ).joinToString(" • ")
     )
 }

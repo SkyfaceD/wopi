@@ -1,28 +1,26 @@
 package org.skyfaced.wopi.ui.dashboard
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import org.skyfaced.wopi.R
 import org.skyfaced.wopi.databinding.FragmentDashboardBinding
 import org.skyfaced.wopi.model.adapter.DashboardAdd
+import org.skyfaced.wopi.model.adapter.DashboardHeader
 import org.skyfaced.wopi.model.adapter.DashboardItem
-import org.skyfaced.wopi.ui.BaseFragment
+import org.skyfaced.wopi.ui.base.BaseAdapter
+import org.skyfaced.wopi.ui.base.BaseFragment
 import org.skyfaced.wopi.ui.dashboard.adapter.AddDashboard
-import org.skyfaced.wopi.ui.dashboard.adapter.DashboardAdapter
 import org.skyfaced.wopi.ui.dashboard.adapter.FilledDashboard
-import org.skyfaced.wopi.utils.Response
+import org.skyfaced.wopi.ui.dashboard.adapter.HeaderDashboard
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -31,7 +29,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupDashboardAdapter()
+        setupRecycler()
         setupSearch()
     }
 
@@ -42,32 +40,56 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
         }
     }
 
-    private fun setupDashboardAdapter() {
-//        val headerDashboardAdapter = DashboardAdapter(listOf(HeaderDashboard()))
-        val filledDashboardAdapter = DashboardAdapter(listOf(FilledDashboard(::onFilledItemClick)))
-        val addDashboardAdapter = DashboardAdapter(listOf(AddDashboard(::onAddItemClick)))
-        val concatAdapter = ConcatAdapter(
-//            headerDashboardAdapter,
-            filledDashboardAdapter,
-            addDashboardAdapter
-        )
-
-        val glm = GridLayoutManager(requireContext(), 2)
-//        glm.spanSizeLookup = object : SpanSizeLookup() {
-//            override fun getSpanSize(position: Int): Int {
-//                return when (position) {
-//                    //First item is header
-//                    0 -> 2
-//                    else -> 1
-//                }
-//            }
-//        }
-
+    private fun setupRecycler() {
         binding {
-            rvDashboard.layoutManager = glm
-            rvDashboard.adapter = concatAdapter
-            rvDashboard.postDelayed({
-                //            headerDashboardAdapter.submitList(listOf(DashboardHeader("Your today forecast")))
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                recyclerDashboard.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
+                    if (scrollY > oldScrollY && btnSearch.isExtended) {
+                        btnSearch.shrink()
+                    }
+
+                    if (scrollY < oldScrollY && !btnSearch.isExtended) {
+                        btnSearch.extend()
+                    }
+                }
+            } else {
+                recyclerDashboard.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrolled(view: RecyclerView, dx: Int, dy: Int) {
+                        super.onScrolled(view, dx, dy)
+                        if (dy > 0 && btnSearch.isExtended) {
+                            btnSearch.shrink()
+                        }
+
+                        if (dy < 0 && !btnSearch.isExtended) {
+                            btnSearch.extend()
+                        }
+                    }
+                })
+            }
+
+            val glm = GridLayoutManager(requireContext(), 2)
+            glm.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    return when (position) {
+                        0 -> 2
+                        else -> 1
+                    }
+                }
+            }
+            recyclerDashboard.layoutManager = glm
+
+            val headerDashboardAdapter = BaseAdapter(listOf(HeaderDashboard()))
+            val filledDashboardAdapter = BaseAdapter(listOf(FilledDashboard(::onFilledItemClick)))
+            val addDashboardAdapter = BaseAdapter(listOf(AddDashboard(::onAddItemClick)))
+            val concatAdapter = ConcatAdapter(
+                headerDashboardAdapter,
+                filledDashboardAdapter,
+                addDashboardAdapter
+            )
+            recyclerDashboard.adapter = concatAdapter
+
+            recyclerDashboard.postDelayed({
+                headerDashboardAdapter.submitList(listOf(DashboardHeader("Your today forecast")))
                 filledDashboardAdapter.submitList(emptyList())
                 addDashboardAdapter.submitList(listOf(DashboardAdd()))
             }, 300L)
@@ -83,19 +105,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(R.layout.fragme
     }
 
     private fun setObservers() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.searchLocation.flowWithLifecycle(
-                viewLifecycleOwner.lifecycle,
-                Lifecycle.State.STARTED
-            ).collect { search ->
-                val currentState = when (search) {
-                    is Response.Success -> search.data.joinToString()
-                    is Response.Error -> search.message
-                    is Response.Load -> "Loading..."
-                }
-                Timber.i(currentState)
-            }
-        }
+
     }
 
     override fun setupBinding(

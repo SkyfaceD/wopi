@@ -1,4 +1,4 @@
-package org.skyfaced.wopi.ui.dashboard.adapter
+package org.skyfaced.wopi.ui.base
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,18 +6,17 @@ import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.DiffUtil
 import androidx.viewbinding.ViewBinding
 import org.skyfaced.wopi.model.adapter.Item
-import org.skyfaced.wopi.ui.BaseViewHolder
 
-interface ItemDashboard<VB : ViewBinding, I : Item> {
-    fun isRelativeItem(item: Item): Boolean
+abstract class BaseItem<VB : ViewBinding, I : Item> {
+    abstract fun isRelativeItem(item: Item): Boolean
 
     @LayoutRes
-    fun getLayoutId(): Int
+    abstract fun getLayoutId(): Int
 
-    fun getViewHolder(
+    abstract fun getViewHolder(
         layoutInflater: LayoutInflater,
         parent: ViewGroup,
     ): BaseViewHolder<VB, I>
 
-    fun getDiffUtil(): DiffUtil.ItemCallback<I>
+    abstract fun getDiffUtil(): DiffUtil.ItemCallback<I>
 }

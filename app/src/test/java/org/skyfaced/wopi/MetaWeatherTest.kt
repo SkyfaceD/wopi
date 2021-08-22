@@ -12,7 +12,7 @@ import org.junit.Assert
 import org.junit.Test
 import org.skyfaced.wopi.model.response.Search
 import org.skyfaced.wopi.network.MetaWeatherApi
-import org.skyfaced.wopi.repository.WeatherImpl
+import org.skyfaced.wopi.repository.SearchRepositoryImpl
 import retrofit2.Retrofit
 
 @ExperimentalSerializationApi
@@ -29,7 +29,7 @@ class MetaWeatherTest {
         .build()
         .create(MetaWeatherApi::class.java)
 
-    private val weather = WeatherImpl(weatherApi)
+    private val weather = SearchRepositoryImpl(weatherApi)
 
     @After
     fun shutdownServer() {

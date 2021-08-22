@@ -1,4 +1,4 @@
-package org.skyfaced.wopi.ui
+package org.skyfaced.wopi.ui.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

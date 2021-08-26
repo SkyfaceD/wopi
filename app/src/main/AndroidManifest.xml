@@ -4,6 +4,7 @@
     package="org.skyfaced.wopi">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".WopiApp"
@@ -35,6 +36,11 @@
                 android:name="org.skyfaced.wopi.startup.CoilInitializer"
                 android:value="androidx.startup" />
         </provider>
+
+        <!-- Comment section below if you want to check 'Merged Manifest' -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
     </application>
 
 </manifest>

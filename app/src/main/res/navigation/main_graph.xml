@@ -9,11 +9,25 @@
         android:name="org.skyfaced.wopi.ui.dashboard.DashboardFragment"
         tools:layout="@layout/fragment_dashboard">
         <action
-            android:id="@+id/action_dashboard_fragment_to_searchFragment"
+            android:id="@+id/action_dashboard_fragment_to_search_fragment"
             app:destination="@id/search_fragment" />
     </fragment>
     <fragment
         android:id="@+id/search_fragment"
         android:name="org.skyfaced.wopi.ui.search.SearchFragment"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_search_fragment_to_map_fragment"
+            app:destination="@id/map_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/map_fragment"
+        android:name="org.skyfaced.wopi.ui.map.MapFragment"
+        tools:layout="@layout/fragment_map">
+        <argument
+            android:name="lattLong"
+            android:defaultValue="null"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>

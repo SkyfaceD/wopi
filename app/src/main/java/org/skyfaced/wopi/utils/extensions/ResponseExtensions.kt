@@ -10,4 +10,4 @@ fun error(message: String? = null, cause: Throwable? = null): Response.Error {
     return Response.Error(message, cause)
 }
 
-fun load() = Response.Load
+fun loading() = Response.Loading

@@ -10,7 +10,8 @@ import org.skyfaced.wopi.model.response.Search
 import org.skyfaced.wopi.repository.SearchRepository
 import org.skyfaced.wopi.utils.Response
 import org.skyfaced.wopi.utils.extensions.error
-import org.skyfaced.wopi.utils.extensions.load
+import org.skyfaced.wopi.utils.extensions.isCoordinates
+import org.skyfaced.wopi.utils.extensions.loading
 import org.skyfaced.wopi.utils.extensions.success
 import org.skyfaced.wopi.utils.result.asFailure
 import org.skyfaced.wopi.utils.result.asSuccess
@@ -18,8 +19,9 @@ import org.skyfaced.wopi.utils.result.isSuccess
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(private val searchRepository: SearchRepository) :
-    ViewModel() {
+class SearchViewModel @Inject constructor(
+    private val searchRepository: SearchRepository,
+) : ViewModel() {
     private val _searchResult =
         MutableStateFlow<Response<List<Search>>>(success(emptyList()))
     val searchResult = _searchResult.asStateFlow()
@@ -34,10 +36,10 @@ class SearchViewModel @Inject constructor(private val searchRepository: SearchRe
 
     private fun search(query: String) {
         viewModelScope.launch {
-            _searchResult.emit(load())
+            _searchResult.emit(loading())
 
             val result =
-                if (isCoordinates(query)) searchRepository.searchByCoordinates(query)
+                if (query.isCoordinates) searchRepository.searchByCoordinates(query)
                 else searchRepository.searchByLocation(query)
             if (result.isSuccess()) {
                 _searchResult.emit(success(result.asSuccess().value))
@@ -46,7 +48,4 @@ class SearchViewModel @Inject constructor(private val searchRepository: SearchRe
             }
         }
     }
-
-    private fun isCoordinates(query: String) =
-        !query.contains("""\p{Alpha}|\\,|\\-""".toRegex())
 }

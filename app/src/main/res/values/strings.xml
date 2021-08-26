@@ -1,7 +1,11 @@
 <resources>
-    <string name="app_name" translatable="false">wopi</string>
+    <string name="app_name" translatable="false">WOPI</string>
 
     <string name="lbl_search">Search</string>
+    <string name="lbl_ok">OK</string>
+    <string name="lbl_notification">Notification</string>
 
     <string name="hint_search">Search</string>
+
+    <string name="message_permission">For the feature to work correctly, you must provide the rights to determine the approximate location</string>
 </resources>

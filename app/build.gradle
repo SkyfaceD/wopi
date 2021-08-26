@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -47,6 +48,10 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    secrets {
+        propertiesFileName 'secrets.properties'
+    }
 }
 
 dependencies {
@@ -85,6 +90,10 @@ dependencies {
     implementation "io.coil-kt:coil:$coilVersion"
     implementation "io.coil-kt:coil-svg:$coilVersion"
 
+    //Google Play Services
+    implementation "com.google.android.gms:play-services-maps:$googleMapsVersion"
+    implementation "com.google.android.gms:play-services-location:$googleLocationVersion"
+
     //Test
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
@@ -99,4 +108,5 @@ dependencies {
     implementation "androidx.core:core-ktx:$coreKtxVersion"
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "androidx.startup:startup-runtime:$startupVersion"
+    implementation "androidx.fragment:fragment-ktx:$fragmentVersion"
 }

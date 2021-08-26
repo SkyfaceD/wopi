@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toTopOf="@id/recycler_today"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/txt_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Moscow" />
+
+            <ImageView
+                android:id="@+id/img_weather_state"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="8dp"
+                android:padding="32dp"
+                app:layout_constraintBottom_toTopOf="@id/txt_temperature"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_city"
+                tools:srcCompat="@drawable/sample_weather" />
+
+            <TextView
+                android:id="@+id/txt_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textAppearance="?attr/textAppearanceHeadline1"
+                app:layout_constraintBottom_toTopOf="@id/txt_weather_state"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="23°C" />
+
+            <TextView
+                android:id="@+id/txt_weather_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceHeadline5"
+                app:layout_constraintBottom_toTopOf="@id/txt_date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Rainy" />
+
+            <TextView
+                android:id="@+id/txt_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:textAppearance="?attr/textAppearanceCaption"
+                app:layout_constraintBottom_toTopOf="@id/divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Wednesday, 25 August" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginBottom="16dp"
+                android:alpha="0.12"
+                android:background="?attr/colorOnSurface"
+                app:layout_constraintBottom_toTopOf="@id/img_wind_speed" />
+
+            <ImageView
+                android:id="@+id/img_wind_speed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/txt_wind_speed"
+                app:layout_constraintEnd_toEndOf="@id/txt_wind_speed"
+                app:layout_constraintStart_toStartOf="@id/txt_wind_speed"
+                app:srcCompat="@drawable/ic_wind" />
+
+            <TextView
+                android:id="@+id/txt_wind_speed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/txt_air_pressure"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="5 km/h\nWind" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/txt_air_pressure"
+                app:layout_constraintEnd_toEndOf="@id/txt_air_pressure"
+                app:layout_constraintStart_toStartOf="@id/txt_air_pressure"
+                app:srcCompat="@drawable/ic_pressure" />
+
+            <TextView
+                android:id="@+id/txt_air_pressure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/txt_humidity"
+                app:layout_constraintStart_toEndOf="@id/txt_wind_speed"
+                tools:text="1022 mmHg\nPressure" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/txt_humidity"
+                app:layout_constraintEnd_toEndOf="@id/txt_humidity"
+                app:layout_constraintStart_toStartOf="@id/txt_humidity"
+                app:srcCompat="@drawable/ic_humidity" />
+
+            <TextView
+                android:id="@+id/txt_humidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/txt_air_pressure"
+                tools:text="40%\nHumidity" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_today"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:paddingHorizontal="4dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/item_detail_today" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

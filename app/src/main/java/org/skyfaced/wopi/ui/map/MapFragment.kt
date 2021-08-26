@@ -42,6 +42,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Timber.d("$args")
         (childFragmentManager.findFragmentById(R.id.map_view) as SupportMapFragment).apply {
             getMapAsync(::onMapReady)
         }

@@ -93,7 +93,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     }
 
     private fun onItemClick(item: SearchItem) {
-        //TODO Navigate to detail screen
+        val destination = SearchFragmentDirections.actionSearchFragmentToDetailFragment(item.id)
+        findNavController().navigate(destination)
     }
 
     private fun setupSearchObserver() {

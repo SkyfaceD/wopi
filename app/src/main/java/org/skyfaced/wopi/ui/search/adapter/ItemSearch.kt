@@ -10,6 +10,7 @@ import org.skyfaced.wopi.model.adapter.Item
 import org.skyfaced.wopi.model.adapter.SearchItem
 import org.skyfaced.wopi.ui.base.BaseItem
 import org.skyfaced.wopi.ui.base.BaseViewHolder
+import org.skyfaced.wopi.utils.extensions.onClick
 
 class ItemSearch(
     private val onItemClick: (SearchItem) -> Unit,
@@ -48,8 +49,8 @@ class ItemSearch(
         private val onItemClick: (SearchItem) -> Unit,
     ) : BaseViewHolder<ItemSearchBinding, SearchItem>(binding) {
         init {
-            binding.root.setOnClickListener {
-                if (bindingAdapterPosition == RecyclerView.NO_POSITION) return@setOnClickListener
+            binding.root.onClick {
+                if (bindingAdapterPosition == RecyclerView.NO_POSITION) return@onClick
                 onItemClick(item)
             }
         }

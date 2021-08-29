@@ -16,14 +16,22 @@ interface MetaWeatherApi {
     suspend fun searchByCoordinates(@Query("lattlong") lattLong: String): Result<List<Search>>
 
     @GET("/api/location/{woeid}/")
-    suspend fun location(@Path("woeid") woeid: String): Location
+    suspend fun getLocation(@Path("woeid") woeid: Int): Result<Location>
 
-    @GET("/api/location/{woeid}/(date)/")
-    suspend fun locationDate(
-        @Path("woeid") woeid: String,
-        @Path("date") date: String,
+    /**
+     * @param date should be in that pattern 'yyyy/MM/dd'
+     */
+    @GET("/api/location/{woeid}/{date}/")
+    suspend fun getConsolidatedWeatherByDate(
+        @Path("woeid") woeid: Int,
+        @Path("date", encoded = true) date: String,
     ): List<ConsolidatedWeather>
 
-    @GET("/static/img/weather/{abbreviation}.svg")
-    suspend fun svg(@Path("abbreviation") abbreviation: String)
+    @GET("/api/location/{woeid}/{year}/{month}/{day}/")
+    suspend fun getConsolidatedWeatherByDate(
+        @Path("woeid") woeid: Int,
+        @Path("year") year: String,
+        @Path("month") month: String,
+        @Path("day") day: String,
+    ): List<ConsolidatedWeather>
 }

@@ -41,7 +41,7 @@ data class ConsolidatedWeather(
     val predictability: Int,
     @SerialName("the_temp")
     val theTemp: Double,
-    val visibility: Double,
+    val visibility: Double?,
     @SerialName("weather_state_abbr")
     val weatherStateAbbr: String,
     @SerialName("weather_state_name")

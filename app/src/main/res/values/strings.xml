@@ -8,4 +8,15 @@
     <string name="hint_search">Search</string>
 
     <string name="message_permission">For the feature to work correctly, you must provide the rights to determine the approximate location</string>
+
+    <string name="weather_state_snow">Snow</string>
+    <string name="weather_state_sleet">Sleet</string>
+    <string name="weather_state_hail">Hail</string>
+    <string name="weather_state_thunderstorm">Thunderstorm</string>
+    <string name="weather_state_heavy_rain">HeavyRain</string>
+    <string name="weather_state_light_rain">LightRain</string>
+    <string name="weather_state_showers">Showers</string>
+    <string name="weather_state_heavy_cloud">HeavyCloud</string>
+    <string name="weather_state_light_cloud">LightCloud</string>
+    <string name="weather_state_clear">Clear</string>
 </resources>

@@ -16,7 +16,9 @@
         android:theme="@style/Theme.Wopi">
         <activity
             android:name=".ui.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,6 +36,9 @@
                 android:value="androidx.startup" />
             <meta-data
                 android:name="org.skyfaced.wopi.startup.CoilInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="net.danlew.android.joda.JodaTimeInitializer"
                 android:value="androidx.startup" />
         </provider>
 

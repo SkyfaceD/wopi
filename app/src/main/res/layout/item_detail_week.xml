@@ -19,7 +19,7 @@
         android:id="@+id/img_weather_state"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="8dp"
         tools:srcCompat="@drawable/sample_weather" />
 
     <TextView

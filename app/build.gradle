@@ -19,6 +19,12 @@ android {
         versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments["dagger.hilt.disableModulesHaveInstallInCheck"] = "true"
+            }
+        }
     }
 
     buildTypes {
@@ -64,6 +70,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintVersion"
     implementation "androidx.recyclerview:recyclerview:$recyclerVersion"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipeVersion"
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
     //Network
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -78,6 +85,7 @@ dependencies {
     //DI
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-compiler:$hiltVersion"
+    kapt "androidx.hilt:hilt-compiler:1.0.0"
 
     //Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
@@ -109,4 +117,5 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "androidx.startup:startup-runtime:$startupVersion"
     implementation "androidx.fragment:fragment-ktx:$fragmentVersion"
+    implementation "net.danlew:android.joda:2.10.9.1"
 }

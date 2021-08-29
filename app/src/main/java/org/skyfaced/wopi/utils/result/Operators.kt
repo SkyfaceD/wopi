@@ -57,3 +57,11 @@ fun <T, R> Result<T>.map(transform: (value: T) -> R): Result<R> {
 fun <T, R> Result<T>.flatMap(transform: (result: Result<T>) -> Result<R>): Result<R> {
     return transform(this)
 }
+
+fun <T> Result<T>.isHttpError(): Boolean {
+    return this is Result.Failure.HttpError
+}
+
+fun <T> Result<T>.asHttpError(): Result.Failure.HttpError {
+    return this as Result.Failure.HttpError
+}

@@ -18,7 +18,6 @@ import kotlinx.coroutines.launch
 import org.skyfaced.wopi.R
 import org.skyfaced.wopi.databinding.FragmentSearchBinding
 import org.skyfaced.wopi.model.adapter.SearchItem
-import org.skyfaced.wopi.model.response.Search
 import org.skyfaced.wopi.ui.MainActivity
 import org.skyfaced.wopi.ui.base.BaseAdapter
 import org.skyfaced.wopi.ui.base.BaseFragment
@@ -53,7 +52,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         binding {
             swipeRefresh.isEnabled = false
 
-            //TODO Add header
+            //TODO Add header, error and empty view
             val adapter = ConcatAdapter(itemAdapter)
             recyclerSearch.adapter = adapter
 
@@ -66,7 +65,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     val query = edtSearch.text?.toString()!!
 
-                    if (query == viewModel.query) {
+                    if (query == viewModel.currentQuery) {
                         //TODO Show ui hint for this condition
                         (requireActivity() as MainActivity).hideKeyboard()
                         return@setOnEditorActionListener false
@@ -112,7 +111,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                     }
 
                     if (response is Response.Success) {
-                        val searchItem = response.data.map(Search::toSearchItem)
+                        val searchItem = response.data
                         itemAdapter.submitList(searchItem)
                     }
                 }

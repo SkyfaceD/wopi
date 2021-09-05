@@ -94,6 +94,11 @@ dependencies {
     //Lifecycle
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
 
+    //Room
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+
+
     //Google Play Services
     implementation "com.google.android.gms:play-services-maps:$googleMapsVersion"
     implementation "com.google.android.gms:play-services-location:$googleLocationVersion"

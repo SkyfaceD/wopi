@@ -9,9 +9,9 @@ import org.skyfaced.wopi.databinding.ItemDetailWeekBinding
 import org.skyfaced.wopi.model.adapter.DetailItem
 import org.skyfaced.wopi.utils.extensions.onClick
 
-class WeekAdapter(
+class DetailWeekAdapter(
     private val onItemClick: (item: DetailItem) -> Unit,
-) : ListAdapter<DetailItem, WeekAdapter.ViewHolder>(DiffUtil) {
+) : ListAdapter<DetailItem, DetailWeekAdapter.ViewHolder>(DiffUtil) {
     inner class ViewHolder(
         private val binding: ItemDetailWeekBinding,
     ) : RecyclerView.ViewHolder(binding.root) {

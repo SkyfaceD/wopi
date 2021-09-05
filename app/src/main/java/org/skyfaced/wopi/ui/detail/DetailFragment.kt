@@ -47,7 +47,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         )
     }
 
-    private val adapter by lazySafetyNone { WeekAdapter(::onItemClick) }
+    private val adapter by lazySafetyNone { DetailWeekAdapter(::onItemClick) }
     private var isFavorite = nextBoolean()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

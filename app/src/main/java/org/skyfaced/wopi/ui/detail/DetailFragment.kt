@@ -10,7 +10,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -63,11 +62,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             StartSnapHelper().attachToRecyclerView(content.recyclerWeek)
             content.recyclerWeek.adapter = adapter
 
-            content.btnHistory.setOnClickListener {
-                val destination =
-                    DetailFragmentDirections.actionDetailFragmentToHistoryFragment(args.woeid)
-                findNavController().navigate(destination)
-            }
+//            content.btnHistory.setOnClickListener {
+//                val destination =
+//                    DetailFragmentDirections.actionDetailFragmentToHistoryFragment(args.woeid)
+//                findNavController().navigate(destination)
+//            }
 
             changeFavoriteImage()
             content.btnFavorite.setOnClickListener {

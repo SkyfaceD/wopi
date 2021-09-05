@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.skyfaced.wopi.model.adapter.SearchItem
-import org.skyfaced.wopi.model.response.Search
+import org.skyfaced.wopi.model.response.SearchResponse
 import org.skyfaced.wopi.repository.SearchRepository
 import org.skyfaced.wopi.utils.Response
 import org.skyfaced.wopi.utils.extensions.error
@@ -43,9 +43,9 @@ class SearchViewModel @Inject constructor(
                     else searchRepository.searchByLocation(query)
 
                 if (result.isFailure()) {
-                    emit(error(result))
+                    emit(error(cause = result.error))
                 } else {
-                    emit(success(result.asSuccess().value.map(Search::toSearchItem)))
+                    emit(success(result.asSuccess().value.map(SearchResponse::toSearchItem)))
                 }
             }
         }

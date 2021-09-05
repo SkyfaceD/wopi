@@ -58,7 +58,11 @@ fun <T, R> Result<T>.flatMap(transform: (result: Result<T>) -> Result<R>): Resul
     return transform(this)
 }
 
-fun <T> Result<T>.isHttpError(): Boolean {
+@OptIn(ExperimentalContracts::class)
+fun Result<*>.isHttpError(): Boolean {
+    contract {
+        returns(true) implies (this@isHttpError is Result.Failure.HttpError)
+    }
     return this is Result.Failure.HttpError
 }
 

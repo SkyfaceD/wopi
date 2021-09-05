@@ -21,7 +21,7 @@ class BaseAdapter(
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<ViewBinding, Item>, position: Int) {
-        holder.onBind(getItem(position))
+        holder.onBind(currentList[position])
     }
 
     override fun onViewDetachedFromWindow(holder: BaseViewHolder<ViewBinding, Item>) {

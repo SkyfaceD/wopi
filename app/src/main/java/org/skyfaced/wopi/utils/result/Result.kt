@@ -46,10 +46,12 @@ sealed class Result<out T> {
         }
     }
 
-    sealed class Failure<E : Throwable>(open val error: E? = null) : Result<Nothing>() {
+    sealed class Failure<E : Throwable> : Result<Nothing>() {
+        abstract val error: E
+
         override fun toString() = "Failure($error)"
 
-        class Error(override val error: Throwable) : Failure<Throwable>(error)
+        class Error(override val error: Throwable) : Failure<Throwable>()
 
         class HttpError(override val error: HttpException) : Failure<HttpException>(),
             HttpResponse {

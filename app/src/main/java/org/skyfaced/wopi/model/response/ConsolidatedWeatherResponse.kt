@@ -4,29 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Location(
-    val woeid: Int,
-    val title: String,
-    @SerialName("consolidated_weather")
-    val consolidatedWeather: List<ConsolidatedWeather>,
-    @SerialName("latt_long")
-    val lattLong: String,
-    @SerialName("location_type")
-    val locationType: String,
-    val parent: Search,
-    val sources: List<Source>,
-    @SerialName("sun_rise")
-    val sunRise: String,
-    @SerialName("sun_set")
-    val sunSet: String,
-    val time: String,
-    val timezone: String,
-    @SerialName("timezone_name")
-    val timezoneName: String,
-)
-
-@Serializable
-data class ConsolidatedWeather(
+data class ConsolidatedWeatherResponse(
     val id: Long,
     @SerialName("air_pressure")
     val airPressure: Double,
@@ -52,13 +30,4 @@ data class ConsolidatedWeather(
     val windDirectionCompass: String,
     @SerialName("wind_speed")
     val windSpeed: Double,
-)
-
-@Serializable
-data class Source(
-    @SerialName("crawl_rate")
-    val crawlRate: Int,
-    val slug: String,
-    val title: String,
-    val url: String,
 )

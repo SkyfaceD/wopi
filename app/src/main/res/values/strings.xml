@@ -4,19 +4,18 @@
     <string name="lbl_search">Search</string>
     <string name="lbl_ok">OK</string>
     <string name="lbl_notification">Notification</string>
+    <string name="lbl_try_again">Try Again</string>
 
     <string name="hint_search">Search</string>
 
     <string name="message_permission">For the feature to work correctly, you must provide the rights to determine the approximate location</string>
 
-    <string name="weather_state_snow">Snow</string>
-    <string name="weather_state_sleet">Sleet</string>
-    <string name="weather_state_hail">Hail</string>
-    <string name="weather_state_thunderstorm">Thunderstorm</string>
-    <string name="weather_state_heavy_rain">HeavyRain</string>
-    <string name="weather_state_light_rain">LightRain</string>
-    <string name="weather_state_showers">Showers</string>
-    <string name="weather_state_heavy_cloud">HeavyCloud</string>
-    <string name="weather_state_light_cloud">LightCloud</string>
-    <string name="weather_state_clear">Clear</string>
+    <string name="error_unexpected">Unexpected error acquired</string>
+    <string name="error_unhandled_network">Unhandled network error</string>
+    <string name="error_forbidden_403">Forbidden error</string>
+
+    <string name="placeholder_wind_speed">%1$s\nWind</string>
+    <string name="placeholder_air_pressure">%1$s\nPressure</string>
+    <string name="placeholder_humidity">%1$s\nHumidity</string>
+    <string name="placeholder_visibility">%1$s\nVisibility</string>
 </resources>

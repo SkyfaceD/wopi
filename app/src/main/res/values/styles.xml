@@ -26,4 +26,8 @@
     <style name="ShapeAppearance.Base.Large" parent="ShapeAppearance.MaterialComponents.LargeComponent">
         <item name="cornerSize">36dp</item>
     </style>
+
+    <style name="ShapeAppearance.Square" parent="">
+        <item name="cornerSize">0dp</item>
+    </style>
 </resources>

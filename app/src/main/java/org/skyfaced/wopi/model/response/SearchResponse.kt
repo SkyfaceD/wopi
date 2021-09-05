@@ -6,7 +6,7 @@ import org.skyfaced.wopi.model.adapter.SearchItem
 import org.skyfaced.wopi.utils.extensions.round
 
 @Serializable
-data class Search(
+data class SearchResponse(
     val woeid: Int,
     val title: String,
     @SerialName("location_type")

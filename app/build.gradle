@@ -70,7 +70,8 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintVersion"
     implementation "androidx.recyclerview:recyclerview:$recyclerVersion"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipeVersion"
-    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    implementation "com.facebook.shimmer:shimmer:$shimmerVersion"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 
     //Network
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -117,5 +118,5 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "androidx.startup:startup-runtime:$startupVersion"
     implementation "androidx.fragment:fragment-ktx:$fragmentVersion"
-    implementation "net.danlew:android.joda:2.10.9.1"
+    implementation "net.danlew:android.joda:$jodatimeVersion"
 }

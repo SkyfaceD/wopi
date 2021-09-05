@@ -92,7 +92,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     }
 
     private fun onItemClick(item: SearchItem) {
-        val destination = SearchFragmentDirections.actionSearchFragmentToDetailFragment(item.id)
+        val destination =
+            SearchFragmentDirections.actionSearchFragmentToDetailFragment(item.id, item.city)
         findNavController().navigate(destination)
     }
 

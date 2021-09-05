@@ -16,4 +16,10 @@
         android:visibility="visible"
         tools:visibility="gone" />
 
+    <include
+        android:id="@+id/error"
+        layout="@layout/fragment_detail_error"
+        android:visibility="gone"
+        tools:visibility="gone" />
+
 </FrameLayout>

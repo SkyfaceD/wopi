@@ -12,20 +12,3 @@ data class DashboardItem(
 ) : Item
 
 class DashboardAdd : Item
-
-class Temperature(
-    val centigrade: Double,
-) {
-    val fahrenheit: Double = (centigrade * 9 / 5) + 32
-    val kelvin: Double = centigrade + 273.15
-
-    val strCentigrade = "${centigrade.round(1)}°C"
-    val strFahrenheit = "${fahrenheit.round(1)}°F"
-    val strKelvin = "${kelvin.round(1)}K"
-
-    private fun Double.round(decimals: Int): Double {
-        var multiplier = 1.0
-        repeat(decimals) { multiplier *= 10 }
-        return kotlin.math.round(this * multiplier) / multiplier
-    }
-}

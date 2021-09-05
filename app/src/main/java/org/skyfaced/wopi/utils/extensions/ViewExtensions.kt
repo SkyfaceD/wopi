@@ -1,6 +1,9 @@
 package org.skyfaced.wopi.utils.extensions
 
 import android.view.View
+import androidx.core.view.isVisible
+import com.facebook.shimmer.ShimmerFrameLayout
+import com.google.android.material.snackbar.Snackbar
 import org.skyfaced.wopi.utils.DebouncedOnClickListener
 
 /**
@@ -13,4 +16,17 @@ inline fun View.onClick(mills: Long = 300L, crossinline body: (v: View) -> Unit)
             if (v != null) body(v)
         }
     })
+}
+
+fun View.showSnackbar(
+    message: String,
+    length: Int = Snackbar.LENGTH_SHORT,
+) {
+    Snackbar.make(this, message, length).show()
+}
+
+fun ShimmerFrameLayout.toggleShimmer(visibility: Boolean) {
+    isVisible = visibility
+    if (visibility) showShimmer(true)
+    else hideShimmer()
 }

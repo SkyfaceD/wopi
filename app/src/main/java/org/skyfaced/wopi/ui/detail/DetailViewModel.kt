@@ -1,62 +1,54 @@
 package org.skyfaced.wopi.ui.detail
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.launch
+import org.skyfaced.wopi.model.adapter.DetailItem
 import org.skyfaced.wopi.repository.DetailRepositoryImpl
 import org.skyfaced.wopi.utils.Response
-import org.skyfaced.wopi.utils.extensions.error
+import org.skyfaced.wopi.utils.di.ViewModelAssistedFactory
 import org.skyfaced.wopi.utils.extensions.loading
-import org.skyfaced.wopi.utils.extensions.success
+import timber.log.Timber
 
 class DetailViewModel @AssistedInject constructor(
     private val detailRepository: DetailRepositoryImpl,
-    @Assisted private val woeid: Int,
+    @Assisted
+    private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-    private val _detail = MutableSharedFlow<Response<DetailRepositoryImpl.Detail>>()
-    val detail = _detail.asSharedFlow()
+    private val _detailsResponse = MutableStateFlow<Response<List<DetailItem>>>(loading())
+    val detailsResponse = _detailsResponse.asStateFlow()
+
+    private val _details = mutableListOf<DetailItem>()
+    val details get() = _details.toList()
 
     init {
+        Timber.e("DetailViewModel Initialized")
         getLocation()
     }
 
-    fun refresh() {
-        getLocation()
+    fun retry() = getLocation()
+
+    fun updateDetails(newDetails: List<DetailItem>) {
+        _details.clear()
+        _details.addAll(newDetails)
     }
 
     private fun getLocation() {
         viewModelScope.launch {
-            with(_detail) {
-                emit(loading())
-                detailRepository.fetch(woeid).catch { t ->
-                    emit(error(cause = t))
-                }.collect { detail ->
-                    emit(success(detail))
-                }
-            }
+            val woeid = savedStateHandle.get<Int>(DetailFragment.BUNDLE_KEY_WOEID)
+                ?: throw IllegalArgumentException("Woeid not passed")
+            Timber.d("Woeid: $woeid")
+            _detailsResponse.emitAll(detailRepository.getDetails(woeid))
         }
     }
 
     @AssistedFactory
-    interface Factory {
-        fun create(@Assisted woeid: Int): DetailViewModel
-    }
-
-    companion object {
-        fun provideFactory(assistedFactory: Factory, woeid: Int): ViewModelProvider.Factory =
-            object : ViewModelProvider.Factory {
-                @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                    return assistedFactory.create(woeid) as T
-                }
-            }
-    }
+    interface Factory : ViewModelAssistedFactory<DetailViewModel>
 }

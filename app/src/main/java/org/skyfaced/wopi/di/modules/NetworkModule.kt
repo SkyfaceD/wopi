@@ -24,7 +24,8 @@ object NetworkModule {
     private const val DEFAULT_TIMEOUT = 15_000L
     private const val META_WEATHER_URL = "https://www.metaweather.com/"
 
-    private val jsonConverter = Json.asConverterFactory("application/json".toMediaType())
+    private val json = Json { ignoreUnknownKeys = true }
+    private val jsonConverter = json.asConverterFactory("application/json".toMediaType())
 
     private val logInterceptor = HttpLoggingInterceptor { message ->
         Timber.tag("OkHttp").d(message)

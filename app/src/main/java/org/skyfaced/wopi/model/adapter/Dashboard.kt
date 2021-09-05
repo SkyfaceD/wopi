@@ -7,7 +7,7 @@ data class DashboardHeader(
 data class DashboardItem(
     val id: Int,
     val city: String,
-    val imageUrl: String,
+    val imageRes: Int,
     val temperature: String,
 ) : Item
 

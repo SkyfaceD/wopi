@@ -35,9 +35,6 @@
                 android:name="org.skyfaced.wopi.startup.TimberInitializer"
                 android:value="androidx.startup" />
             <meta-data
-                android:name="org.skyfaced.wopi.startup.CoilInitializer"
-                android:value="androidx.startup" />
-            <meta-data
                 android:name="net.danlew.android.joda.JodaTimeInitializer"
                 android:value="androidx.startup" />
         </provider>

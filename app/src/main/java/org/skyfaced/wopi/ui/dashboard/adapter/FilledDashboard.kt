@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import org.skyfaced.wopi.R
 import org.skyfaced.wopi.databinding.ItemDashboardBinding
 import org.skyfaced.wopi.model.adapter.DashboardItem
@@ -37,7 +36,7 @@ class FilledDashboard(
         //@formatter:off
         override fun areItemsTheSame(oldItem: DashboardItem, newItem: DashboardItem) =
             oldItem.city == newItem.city &&
-            oldItem.imageUrl == newItem.imageUrl &&
+            oldItem.imageRes == newItem.imageRes &&
             oldItem.temperature == newItem.temperature
         //@formatter:on
 
@@ -60,7 +59,7 @@ class FilledDashboard(
             super.onBind(item)
             binding {
                 txtCity.text = item.city
-                imgWeatherState.load(item.imageUrl)
+                imgWeatherState.setImageResource(item.imageRes)
                 txtTemperature.text = item.temperature
             }
         }

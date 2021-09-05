@@ -1,4 +1,4 @@
-package org.skyfaced.wopi.repository
+package org.skyfaced.wopi.repository.detail
 
 import kotlinx.coroutines.flow.Flow
 import org.skyfaced.wopi.model.adapter.DetailItem

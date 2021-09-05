@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.skyfaced.wopi.model.adapter.SearchItem
 import org.skyfaced.wopi.model.response.SearchResponse
-import org.skyfaced.wopi.repository.SearchRepository
+import org.skyfaced.wopi.repository.search.SearchRepository
 import org.skyfaced.wopi.utils.Response
 import org.skyfaced.wopi.utils.extensions.error
 import org.skyfaced.wopi.utils.extensions.isCoordinates

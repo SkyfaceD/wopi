@@ -1,4 +1,4 @@
-package org.skyfaced.wopi.repository
+package org.skyfaced.wopi.repository.search
 
 import org.skyfaced.wopi.model.response.SearchResponse
 import org.skyfaced.wopi.utils.result.Result

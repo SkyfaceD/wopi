@@ -12,7 +12,7 @@ import org.junit.Assert
 import org.junit.Test
 import org.skyfaced.wopi.model.response.SearchResponse
 import org.skyfaced.wopi.network.MetaWeatherApi
-import org.skyfaced.wopi.repository.SearchRepositoryImpl
+import org.skyfaced.wopi.repository.search.SearchRepositoryImpl
 import retrofit2.Retrofit
 
 @ExperimentalSerializationApi

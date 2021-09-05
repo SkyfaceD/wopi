@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.launch
 import org.skyfaced.wopi.model.adapter.DetailItem
-import org.skyfaced.wopi.repository.DetailRepositoryImpl
+import org.skyfaced.wopi.repository.detail.DetailRepositoryImpl
 import org.skyfaced.wopi.utils.Response
 import org.skyfaced.wopi.utils.di.ViewModelAssistedFactory
 import org.skyfaced.wopi.utils.extensions.loading

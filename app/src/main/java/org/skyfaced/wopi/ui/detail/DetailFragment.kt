@@ -18,18 +18,14 @@ import org.skyfaced.wopi.R
 import org.skyfaced.wopi.databinding.FragmentDetailBinding
 import org.skyfaced.wopi.model.adapter.DetailItem
 import org.skyfaced.wopi.ui.base.BaseFragment
-import org.skyfaced.wopi.utils.Response
 import org.skyfaced.wopi.utils.SquareDecoration
 import org.skyfaced.wopi.utils.StartSnapHelper
+import org.skyfaced.wopi.utils.State
 import org.skyfaced.wopi.utils.di.SavedStateViewModelFactory
-import org.skyfaced.wopi.utils.extensions.handleNetworkException
-import org.skyfaced.wopi.utils.extensions.isLoading
-import org.skyfaced.wopi.utils.extensions.lazySafetyNone
-import org.skyfaced.wopi.utils.extensions.toggleShimmer
+import org.skyfaced.wopi.utils.extensions.*
 import org.skyfaced.wopi.utils.result.HttpException
 import timber.log.Timber
 import javax.inject.Inject
-import kotlin.random.Random.Default.nextBoolean
 
 //TODO Fix view state
 @AndroidEntryPoint
@@ -48,7 +44,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     }
 
     private val adapter by lazySafetyNone { DetailWeekAdapter(::onItemClick) }
-    private var isFavorite = nextBoolean()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -68,10 +63,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 //                findNavController().navigate(destination)
 //            }
 
-            changeFavoriteImage()
-            content.btnFavorite.setOnClickListener {
-                isFavorite = !isFavorite
-                changeFavoriteImage()
+            content.btnFavorite.onClick {
+                viewModel.onFavoriteClick(args.city)
             }
 
             error.btnRetry.setOnClickListener {
@@ -81,9 +74,18 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         }
 
         setupDetailObserver()
+        setupFavoriteObserver()
     }
 
-    private fun changeFavoriteImage() {
+    private fun setupFavoriteObserver() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.favoriteState.flowWithLifecycle(lifecycle).collect { isFavorite ->
+                changeFavoriteImage(isFavorite)
+            }
+        }
+    }
+
+    private fun changeFavoriteImage(isFavorite: Boolean) {
         val favoriteRes = if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_unfavorite
         binding.content.btnFavorite.setImageResource(favoriteRes)
     }
@@ -102,7 +104,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 }
 
                 when (response) {
-                    is Response.Success -> {
+                    is State.Success -> {
                         binding.content.root.isVisible = true
 
                         val details = response.data.mapIndexed { idx, item ->
@@ -114,7 +116,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
                         updateContent(details[0])
                     }
-                    is Response.Error -> {
+                    is State.Error -> {
                         binding.error.root.isVisible = true
                         binding.error.anim.playAnimation()
 
@@ -149,7 +151,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun updateContent(item: DetailItem) {
         with(binding.content) {
             imgWeatherState.setImageResource(item.weatherState.drawableRes)
-            txtTemperature.text = item.helper.celsius
+            txtTemperature.text = item.helper.temperature.celsius
             txtWeatherState.text = item.weatherState.value
             txtDate.text = item.dateStr
             txtWindSpeed.text =

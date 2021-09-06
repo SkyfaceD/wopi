@@ -5,6 +5,8 @@
     <string name="lbl_ok">OK</string>
     <string name="lbl_notification">Notification</string>
     <string name="lbl_try_again">Try Again</string>
+    <string name="lbl_item_removed">Item was removed</string>
+    <string name="lbl_undo">Undo</string>
 
     <string name="hint_search">Search</string>
 

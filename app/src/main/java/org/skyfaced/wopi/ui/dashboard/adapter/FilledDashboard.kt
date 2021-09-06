@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import org.skyfaced.wopi.R
-import org.skyfaced.wopi.databinding.ItemDashboardBinding
+import org.skyfaced.wopi.databinding.ItemDashboardExperimentalBinding
 import org.skyfaced.wopi.model.adapter.DashboardItem
 import org.skyfaced.wopi.model.adapter.Item
 import org.skyfaced.wopi.ui.base.BaseItem
@@ -13,22 +13,21 @@ import org.skyfaced.wopi.ui.base.BaseViewHolder
 
 class FilledDashboard(
     private val onItemClick: (DashboardItem) -> Unit,
-) : BaseItem<ItemDashboardBinding, DashboardItem>() {
+) : BaseItem<ItemDashboardExperimentalBinding, DashboardItem>() {
     override fun isRelativeItem(item: Item) = item is DashboardItem
 
-    override fun getLayoutId() = R.layout.item_dashboard
+    override fun getLayoutId() = R.layout.item_dashboard_experimental
 
     override fun getViewHolder(
         layoutInflater: LayoutInflater,
         parent: ViewGroup,
-    ): BaseViewHolder<ItemDashboardBinding, DashboardItem> {
+    ): BaseViewHolder<ItemDashboardExperimentalBinding, DashboardItem> {
         return FilledDashboardViewHolder(
-            binding = ItemDashboardBinding.inflate(
+            binding = ItemDashboardExperimentalBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            ),
-            onItemClick = onItemClick
+            )
         )
     }
 
@@ -36,7 +35,7 @@ class FilledDashboard(
         //@formatter:off
         override fun areItemsTheSame(oldItem: DashboardItem, newItem: DashboardItem) =
             oldItem.city == newItem.city &&
-            oldItem.imageRes == newItem.imageRes &&
+            oldItem.weatherState == newItem.weatherState &&
             oldItem.temperature == newItem.temperature
         //@formatter:on
 
@@ -44,10 +43,9 @@ class FilledDashboard(
             oldItem == newItem
     }
 
-    private class FilledDashboardViewHolder(
-        binding: ItemDashboardBinding,
-        private val onItemClick: (DashboardItem) -> Unit,
-    ) : BaseViewHolder<ItemDashboardBinding, DashboardItem>(binding) {
+    private inner class FilledDashboardViewHolder(
+        binding: ItemDashboardExperimentalBinding,
+    ) : BaseViewHolder<ItemDashboardExperimentalBinding, DashboardItem>(binding) {
         init {
             binding.root.setOnClickListener {
                 if (bindingAdapterPosition == RecyclerView.NO_POSITION) return@setOnClickListener
@@ -59,8 +57,8 @@ class FilledDashboard(
             super.onBind(item)
             binding {
                 txtCity.text = item.city
-                imgWeatherState.setImageResource(item.imageRes)
-                txtTemperature.text = item.temperature
+                imgWeatherState.setImageResource(item.weatherState.drawableRes)
+                txtTemperature.text = item.temperature.celsius
             }
         }
     }

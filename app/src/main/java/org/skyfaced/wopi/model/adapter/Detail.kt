@@ -1,6 +1,7 @@
 package org.skyfaced.wopi.model.adapter
 
 import org.joda.time.DateTime
+import org.skyfaced.wopi.model.Temperature
 import org.skyfaced.wopi.model.WeatherState
 import org.skyfaced.wopi.utils.extensions.lazySafetyNone
 import org.skyfaced.wopi.utils.extensions.round
@@ -22,14 +23,10 @@ data class Week(
 )
 
 /**
- * @param temperature default in centigrade
  * @param windSpeed default in mph
  * @param visibility default in miles
  *
  * Property result examples:
- * @property celsius - '23℃'
- * @property fahrenheit - '73.4℉'
- * @property kelvin - '296.15K'
  * @property windMph - '3 mph'
  * @property windKph - '6 kph'
  * @property airPressureStr - '1022 mbar'
@@ -38,16 +35,12 @@ data class Week(
  * @property visibilityKilometers - '29.6 kilometers'
  */
 class DetailHelper(
-    temperature: Double,
+    val temperature: Temperature,
     windSpeed: Double,
     airPressure: Double,
     humidity: Int,
     visibility: Double,
 ) {
-    val celsius by lazySafetyNone { "${temperature.roundToInt()}℃" }
-    val fahrenheit by lazySafetyNone { "${((temperature * 9 / 5) + 32).roundToInt()}℉" }
-    val kelvin by lazySafetyNone { "${(temperature + 273.15).roundToInt()}K" }
-
     val windMph by lazySafetyNone { "${windSpeed.roundToInt()} mph" }
     val windKph by lazySafetyNone { "${windSpeed / 1.60934} kph" }
 

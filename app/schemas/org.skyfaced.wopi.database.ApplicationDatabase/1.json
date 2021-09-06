@@ -1,0 +1,52 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "66ca0ca5c91371bde9595742361d8a1f",
+    "entities": [
+      {
+        "tableName": "dashboard",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`woeid` INTEGER NOT NULL, `weatherState` TEXT NOT NULL, `city` TEXT NOT NULL, `temperature` REAL NOT NULL, PRIMARY KEY(`woeid`))",
+        "fields": [
+          {
+            "fieldPath": "woeid",
+            "columnName": "woeid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "weatherState",
+            "columnName": "weatherState",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "city",
+            "columnName": "city",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "temperature",
+            "columnName": "temperature",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "woeid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '66ca0ca5c91371bde9595742361d8a1f')"
+    ]
+  }
+}

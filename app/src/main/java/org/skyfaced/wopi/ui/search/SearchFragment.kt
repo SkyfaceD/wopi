@@ -22,7 +22,7 @@ import org.skyfaced.wopi.ui.MainActivity
 import org.skyfaced.wopi.ui.base.BaseAdapter
 import org.skyfaced.wopi.ui.base.BaseFragment
 import org.skyfaced.wopi.ui.search.adapter.ItemSearch
-import org.skyfaced.wopi.utils.Response
+import org.skyfaced.wopi.utils.State
 import org.skyfaced.wopi.utils.extensions.hideKeyboard
 import org.skyfaced.wopi.utils.extensions.isCoordinates
 import timber.log.Timber
@@ -107,11 +107,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
                 binding {
                     swipeRefresh.isRefreshing = when (response) {
-                        is Response.Loading -> true
+                        is State.Loading -> true
                         else -> false
                     }
 
-                    if (response is Response.Success) {
+                    if (response is State.Success) {
                         val searchItem = response.data
                         itemAdapter.submitList(searchItem)
                     }

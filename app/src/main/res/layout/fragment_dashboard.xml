@@ -18,11 +18,9 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:overScrollMode="never"
-            android:padding="4dp"
-            android:paddingBottom="72dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
-            tools:listitem="@layout/item_dashboard" />
+            android:paddingBottom="88dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_dashboard_experimental" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

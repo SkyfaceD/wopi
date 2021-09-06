@@ -23,6 +23,7 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments["dagger.hilt.disableModulesHaveInstallInCheck"] = "true"
+                arguments += ["room.schemaLocation" : "$projectDir/schemas".toString()]
             }
         }
     }
@@ -96,8 +97,8 @@ dependencies {
 
     //Room
     implementation "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
-
 
     //Google Play Services
     implementation "com.google.android.gms:play-services-maps:$googleMapsVersion"

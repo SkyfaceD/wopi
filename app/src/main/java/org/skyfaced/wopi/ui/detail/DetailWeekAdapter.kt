@@ -28,7 +28,7 @@ class DetailWeekAdapter(
         fun onBind(item: DetailItem) {
             _item = item
             with(binding) {
-                txtTemperature.text = item.helper.celsius
+                txtTemperature.text = item.helper.temperature.celsius
                 imgWeatherState.setImageResource(item.weatherState.drawableRes)
                 txtDayOfWeek.text = item.week.dayOfWeek
                 root.isChecked = item.week.isChecked

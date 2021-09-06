@@ -1,11 +1,9 @@
 package org.skyfaced.wopi.utils
 
-sealed class Response<out T> {
-    data class Success<T>(val data: T) : Response<T>()
-
-    data class Error(val cause: Throwable?) : Response<Nothing>()
-
-    object Loading : Response<Nothing>()
+sealed class State<out T> {
+    data class Success<T>(val data: T) : State<T>()
+    data class Error(val cause: Throwable?) : State<Nothing>()
+    object Loading : State<Nothing>()
 
     override fun toString(): String {
         return when (this) {

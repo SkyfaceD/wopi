@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import org.skyfaced.wopi.model.adapter.SearchItem
 import org.skyfaced.wopi.model.response.SearchResponse
 import org.skyfaced.wopi.repository.search.SearchRepository
-import org.skyfaced.wopi.utils.Response
+import org.skyfaced.wopi.utils.State
 import org.skyfaced.wopi.utils.extensions.error
 import org.skyfaced.wopi.utils.extensions.isCoordinates
 import org.skyfaced.wopi.utils.extensions.loading
@@ -22,7 +22,7 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val searchRepository: SearchRepository,
 ) : ViewModel() {
-    private val _searchResult = MutableStateFlow<Response<List<SearchItem>>>(success(emptyList()))
+    private val _searchResult = MutableStateFlow<State<List<SearchItem>>>(success(emptyList()))
     val searchResult = _searchResult.asStateFlow()
 
     private var _currentQuery = ""
